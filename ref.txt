@@ -1,0 +1,3 @@
+https://fonts.google.com/specimen/Space+Grotesk?preview.text=The%20body%20is%20rotating%20at%0A2%20m%2Fs.%20%0A334
+The site now uses Inter for body text (excellent readability and clean appearance) and
+ JetBrains Mono for equations and code (perfect for mathematical symbols and formulas).
