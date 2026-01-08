@@ -1,63 +1,64 @@
-import { Stack } from "expo-router";
+import { authContext } from "@/contexts/AuthContext";
+import { signInWithGoogle } from "@/lib/auth";
+import { supabase } from "@/lib/supabase";
+import { Stack, useRouter } from "expo-router";
+import { useContext } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
+// 280600171280-2tg32pqfjsge1hm0gktb8dkm82fgr5sl.apps.googleusercontent.com
 
 export default function Home() {
+
+  const router = useRouter()
+  const auth = useContext(authContext)
+  const getIn = async()=>{
+    await signInWithGoogle()
+    const { data } = await supabase.auth.getUser();
+    auth.setUser(data.user)
+
+  }
   return (
     <View className="flex-1 bg-[#1A1D27] overflow-hidden">
       <Stack.Screen options={{ headerShown: false }} />
+      <View className="flex-1 bg-white items-center justify-between px-6 py-16">
 
-      {/* BACKGROUND LAYERS */}
+        <View />
 
-      {/* Crimson battlefield glow */}
-      <View className="absolute w-[500px] h-[500px] bg-red-600/25 rounded-full blur-3xl -top-52 right-[-120px]" />
-
-      {/* Electric blue contrast glow */}
-      <View className="absolute w-[480px] h-[480px] bg-blue-500/20 rounded-full blur-3xl -bottom-56 left-[-130px]" />
-
-      {/* Diagonal gradient wash */}
-      <View className="absolute inset-0 bg-gradient-to-br from-[#141622]/60 via-transparent to-[#0D0F19]/70" />
-
-      {/* Vignette to add battlefield contrast */}
-      <View className="absolute inset-0 bg-black/30" />
-
-      {/* Main Content */}
-      <View className="flex-1 items-center justify-center px-8">
-
-        {/* Logo */}
-        <Image
-          source={require("../assets/logo.png")}
-          resizeMode="contain"
-          className="w-44 h-44 mb-6 drop-shadow-lg"
-        />
-
-        {/* Title */}
-        <Text className="text-white text-5xl font-extrabold tracking-[4px] uppercase mb-3 text-center drop-shadow-md">
-          B A T T L O N
-        </Text>
-
-        {/* Subtitle */}
-        <Text className="text-gray-300 text-lg text-center max-w-[300px] leading-6 mb-12">
-          Practice, compete & conquer.  
-          Sharpen your mind. Enter the battlefield of{" "}
-          <Text className="text-red-400 font-bold">Math</Text> &{" "}
-          <Text className="text-blue-400 font-bold">Physics</Text>.
-        </Text>
-
-        {/* CTA Button (Colored) */}
-        <TouchableOpacity activeOpacity={0.85}>
-          <View className="px-12 py-4 rounded-2xl shadow-2xl shadow-red-900/60 border border-red-400/40
-                           bg-gradient-to-r from-red-600 via-red-700 to-red-800">
-            <Text className="text-white text-xl font-bold tracking-wide uppercase">
-              Enter the Arena
-            </Text>
+        <View className="items-center">
+          <View
+            className="h-24 w-24 rounded-2xl items-center justify-center mb-6"
+            style={{ backgroundColor: '#7C3AED' }}
+          >
+            <Text className="text-white text-4xl font-bold">λ</Text>
           </View>
-        </TouchableOpacity>
+
+          <Text className="text-4xl font-semibold text-gray-900">
+           E I G E N
+          </Text>
+
+          <Text className="mt-3 text-center text-base font-regular">
+            Practice and Compete over math and physics problems 
+          </Text>
+        </View>
+
+        <View className="w-full">
+          <TouchableOpacity
+            activeOpacity={0.85}
+            onPress={getIn}
+            className="w-full rounded-xl py-4 items-center"
+            style={{ backgroundColor: '#7C3AED' }}
+          >
+            <Text className="text-white text-lg font-semibold">
+             Get started with google
+            </Text>
+          </TouchableOpacity>
+
+        
+        </View>
 
       </View>
-
-      {/* Subtle metal top/bottom lines */}
-      <View className="absolute top-0 left-0 right-0 h-[2px] bg-white/10" />
-      <View className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/5" />
     </View>
   );
 }
+
+
+// Use Context API to store from supabase secure storage to 
