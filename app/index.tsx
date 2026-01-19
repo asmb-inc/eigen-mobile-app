@@ -1,20 +1,27 @@
+import { BASE_URL } from "@/BASE_URL";
 import { authContext } from "@/contexts/AuthContext";
 import { signInWithGoogle } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
+import axios from "axios";
 import { Stack, useRouter } from "expo-router";
 import { useContext } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
+
 // 280600171280-2tg32pqfjsge1hm0gktb8dkm82fgr5sl.apps.googleusercontent.com
 
 export default function Home() {
 
   const router = useRouter()
   const auth = useContext(authContext)
-  const getIn = async()=>{
-    await signInWithGoogle()
-    const { data } = await supabase.auth.getUser();
-    auth.setUser(data.user)
 
+
+
+
+
+
+
+  const getIn = async () => {
+    await signInWithGoogle()
   }
   return (
     <View className="flex-1 bg-[#1A1D27] overflow-hidden">
@@ -31,12 +38,12 @@ export default function Home() {
             <Text className="text-white text-4xl font-bold">λ</Text>
           </View>
 
-          <Text className="text-4xl font-semibold text-gray-900">
-           E I G E N
+          <Text className="text-4xl  text-gray-900">
+            E I G E N
           </Text>
 
           <Text className="mt-3 text-center text-base font-regular">
-            Practice and Compete over math and physics problems 
+            Practice and Compete over math and physics problems
           </Text>
         </View>
 
@@ -47,12 +54,12 @@ export default function Home() {
             className="w-full rounded-xl py-4 items-center"
             style={{ backgroundColor: '#7C3AED' }}
           >
-            <Text className="text-white text-lg font-semibold">
-             Get started with google
+            <Text className="text-white text-lg ">
+              Get started with google
             </Text>
           </TouchableOpacity>
 
-        
+
         </View>
 
       </View>
