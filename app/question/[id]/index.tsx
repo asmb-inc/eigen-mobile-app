@@ -5,7 +5,8 @@ import axios from "axios"
 import { supabase } from "@/lib/supabase"
 import { BASE_URL } from "@/BASE_URL"
 import { AnswerResult, Question } from "@/interface"
-
+import Katex from 'react-native-katex'
+import MathJaxView from "@/components/Mathview"
 
 export default function QuestionDetailScreen() {
   const { id } = useLocalSearchParams()
@@ -16,7 +17,15 @@ export default function QuestionDetailScreen() {
   const [results, setResults] = useState<AnswerResult[] | null>(null)
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
+  const content = `
+This is an inline equation $E = mc^2$ inside a sentence.
 
+And below is a block equation:
+
+$$
+\\sum_{i=1}^n i = \\frac{n(n+1)}{2}
+$$
+`;
   useEffect(() => {
     fetchQuestion()
   }, [id])
@@ -136,13 +145,16 @@ export default function QuestionDetailScreen() {
           {/* Question Body */}
           <View className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-8">
             <Text className="text-base text-gray-900 leading-6">
-              {question.body}
+              {/* {question.body} */}
+              {/* Question Body */}
+              <MathJaxView content={content} />
             </Text>
+
           </View>
 
           {/* Answer Inputs */}
           <Text className="text-lg font-semibold text-black mb-4">
-            Your Answer{question.blanks_count > 1 ? "s" : ""} 
+            Your Answer{question.blanks_count > 1 ? "s" : ""}
           </Text>
 
           {answers.map((value, index) => {
@@ -163,13 +175,12 @@ export default function QuestionDetailScreen() {
                   placeholder="Enter your answer"
                   placeholderTextColor="#9CA3AF"
                   keyboardType="numeric"
-                  className={`border rounded-lg px-4 py-3 text-black ${
-                    result
-                      ? result.is_correct
-                        ? "border-green-500"
-                        : "border-red-500"
-                      : "border-gray-300"
-                  }`}
+                  className={`border rounded-lg px-4 py-3 text-black ${result
+                    ? result.is_correct
+                      ? "border-green-500"
+                      : "border-red-500"
+                    : "border-gray-300"
+                    }`}
                 />
 
                 {/* Feedback */}
@@ -179,15 +190,15 @@ export default function QuestionDetailScreen() {
                       Your answer:{" "}
                       {result.submitted === null
                         ? "—"
-                        : result.submitted} is wrong buddy 😭 
+                        : result.submitted} is wrong buddy 😭
                     </Text>
-               
+
                   </View>
                 )}
 
                 {result && result.is_correct && (
                   <Text className="mt-2 text-sm text-green-600 font-medium">
-                    ✓ Dam Buddy You Nailed It ! 😎        
+                    ✓ Dam Buddy You Nailed It ! 😎
                   </Text>
                 )}
               </View>
@@ -201,11 +212,10 @@ export default function QuestionDetailScreen() {
         <Pressable
           disabled={submitting}
           onPress={handleSubmit}
-          className={`rounded-xl py-4 items-center ${
-            submitting
-              ? "bg-violet-300"
-              : "bg-[#7C3AED]"
-          }`}
+          className={`rounded-xl py-4 items-center ${submitting
+            ? "bg-violet-300"
+            : "bg-[#7C3AED]"
+            }`}
         >
           <Text className="text-white font-semibold text-base">
             {submitting ? "Submitting..." : "Submit Answer"}

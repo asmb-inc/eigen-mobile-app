@@ -21,6 +21,7 @@ export default function Home() {
 
 
   const getIn = async () => {
+    
     await signInWithGoogle()
   }
   return (

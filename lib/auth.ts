@@ -8,7 +8,7 @@ export async function signInWithGoogle() {
     const redirectTo = makeRedirectUri({
         scheme: 'eigen',
     })
-
+ 
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
