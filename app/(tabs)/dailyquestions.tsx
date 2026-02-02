@@ -1,4 +1,4 @@
-import { Text, View, ScrollView, Pressable, FlatList } from "react-native"
+import { Text, View, ScrollView, Pressable, FlatList, Modal } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import { getDifficultyColor } from "@/utils"
 import SingleQuestionsCard from "@/components/SingleQuestionsCard"
@@ -8,6 +8,8 @@ import axios from 'axios'
 import { supabase } from "@/lib/supabase"
 import { BASE_URL } from "@/BASE_URL"
 import { authContext } from "@/contexts/AuthContext"
+import SolvedCalendar from "@/components/SolvedCalendar"
+// import { useState } from "react"
 
 
 const DailyQuestionsScreen = () => {
@@ -15,21 +17,22 @@ const DailyQuestionsScreen = () => {
     const [otherQuestions, setOtherQuestions] = useState<Question[]>([])
     const [dailyQuestion, setDailyQuestion] = useState<Question | null>(null)
     const auth = useContext(authContext)
+    const [calendarOpen, setCalendarOpen] = useState(false)
 
 
     const getDailyQuestion = async () => {
 
 
-       
-            try {
-                const resp = await axios.get(BASE_URL + '/questions/daily', { headers: { Authorization: 'Bearer ' + auth.token } })
-                console.log(resp.data)
-                setDailyQuestion(resp.data)
-            } catch (e) {
-                console.log('could not load the daily question')
-                console.log(e)
-            }
-     
+
+        try {
+            const resp = await axios.get(BASE_URL + '/questions/daily', { headers: { Authorization: 'Bearer ' + auth.token } })
+            console.log(resp.data)
+            setDailyQuestion(resp.data)
+        } catch (e: any) {
+            console.log('could not load the daily question')
+            console.log(e.response?.data || e.message);
+        }
+
 
 
     }
@@ -46,9 +49,9 @@ const DailyQuestionsScreen = () => {
                 const resp = await axios.get(BASE_URL + '/questions/all', { headers: { Authorization: 'Bearer ' + accessToken } })
                 // console.log(resp.data)
                 setOtherQuestions(resp.data)
-            } catch (e) {
+            } catch (e: any) {
                 console.log('could not load the daily question')
-                console.log(e)
+                console.log(e.response?.data || e.message);
             }
         } else {
 
@@ -72,13 +75,14 @@ const DailyQuestionsScreen = () => {
                     <Text className="text-2xl font-semibold text-gray-800">
                         Question of the Day
                     </Text>
-                    <Pressable onPress={()=>{}} className="active:opacity-70">
-                        <Ionicons name="calendar" size={24} color="#4B5563" />
-                    </Pressable>
+                        <Pressable onPress={() => setCalendarOpen(true)} className="active:opacity-70">
+                            <Ionicons name="calendar" size={24} color="#4B5563" />
+                        </Pressable>
+                        <SolvedCalendar visible={calendarOpen} onClose={() => setCalendarOpen(false)} />
                 </View>
 
                 {dailyQuestion && (
-                    <SingleQuestionsCard item={dailyQuestion}  />
+                    <SingleQuestionsCard item={dailyQuestion} />
                 )}
             </View>
 

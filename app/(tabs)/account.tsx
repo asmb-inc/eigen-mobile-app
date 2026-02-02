@@ -20,7 +20,12 @@ const AccountScreen = ()=>{
     const fetchStreak = async()=>{
         try{
             const resp = await axios.get(BASE_URL+'/profile/streak', {headers:{Authorization: 'Bearer '+ auth.token}})
-            setStreak(resp.data)
+            // backend may return an object { current_streak, recent_counts }
+            if (resp.data && typeof resp.data === 'object' && resp.data.current_streak !== undefined) {
+                setStreak(resp.data.current_streak)
+            } else {
+                setStreak(resp.data)
+            }
         }catch(e){
             console.log(e)
         }

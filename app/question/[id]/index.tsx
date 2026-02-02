@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useLocalSearchParams, useNavigation } from "expo-router"
 import axios from "axios"
 import { supabase } from "@/lib/supabase"
+import { triggerRefresh } from "@/utils/calendarRefresh"
 import { BASE_URL } from "@/BASE_URL"
 import { AnswerResult, Question } from "@/interface"
 import Katex from 'react-native-katex'
@@ -92,6 +93,16 @@ $$
       )
 
       setResults(resp.data.results)
+      // If backend indicates this was the first solve for this user+question,
+      // trigger the calendar refresh so UI updates (streak + calendar)
+      if (resp.data.firstSolve) {
+        try {
+          triggerRefresh()
+        } catch (e) {
+          console.log("Could not trigger calendar refresh", e)
+        }
+      }
+      // Optionally, backend may return updated streak in resp.data.streak
     } catch (e) {
       console.log("Submit failed", e)
     } finally {
