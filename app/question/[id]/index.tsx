@@ -214,7 +214,7 @@ $$
           onPress={handleSubmit}
           className={`rounded-xl py-4 items-center ${submitting
             ? "bg-violet-300"
-            : "bg-[#7C3AED]"
+            : "bg-[#36093D]"
             }`}
         >
           <Text className="text-white font-semibold text-base">

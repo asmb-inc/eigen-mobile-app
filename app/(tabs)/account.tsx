@@ -43,7 +43,7 @@ const AccountScreen = ()=>{
                         <Text className="text-xl font-semibold">{auth.user?.user_metadata.full_name}</Text>
                         <Text className="text-xs font-semibold">Rating: {auth.profile?.rating}</Text>
                         <Text className="text-xs font-semibold">Current Streak: {streak}</Text>
-                        <View className="mt-1 px-2 py-1 rounded self-start" style={{ backgroundColor: '#7C3AED' }}>
+                        <View className="mt-1 px-2 py-1 rounded self-start" style={{ backgroundColor: '#36093D' }}>
                             
                             <Text className="text-xs text-white">Sorcerer</Text>
                         </View>

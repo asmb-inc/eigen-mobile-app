@@ -32,12 +32,11 @@ export default function Home() {
         <View />
 
         <View className="items-center">
-          <View
-            className="h-24 w-24 rounded-2xl items-center justify-center mb-6"
-            style={{ backgroundColor: '#7C3AED' }}
-          >
-            <Text className="text-white text-4xl font-bold">λ</Text>
-          </View>
+          <Image
+            source={require('@/assets/logo.png')}
+            className="h-24 w-24 mb-6"
+            resizeMode="contain"
+          />
 
           <Text className="text-4xl  text-gray-900">
             E I G E N
@@ -53,7 +52,7 @@ export default function Home() {
             activeOpacity={0.85}
             onPress={getIn}
             className="w-full rounded-xl py-4 items-center"
-            style={{ backgroundColor: '#7C3AED' }}
+            style={{ backgroundColor: '#36093D' }}
           >
             <Text className="text-white text-lg ">
               Get started with google
