@@ -20,7 +20,7 @@ const AccountScreen = ()=>{
     const fetchStreak = async()=>{
         try{
             const resp = await axios.get(BASE_URL+'/profile/streak', {headers:{Authorization: 'Bearer '+ auth.token}})
-            setStreak(resp.data)
+            setStreak(resp.data.current_streak)
         }catch(e){
             console.log(e)
         }
