@@ -35,3 +35,9 @@ export interface AuthContextInterface{
     setToken: (token: string) => void,
     
 }
+
+
+export interface DiffcultyColors{
+    bg: string
+    text: string
+}

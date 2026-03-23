@@ -6,7 +6,7 @@ import { BASE_URL } from "@/BASE_URL";
 import axios from "axios";   
 
     
- 
+  
 function ContestsScreen() {  
       
   const auth = useContext(authContext);

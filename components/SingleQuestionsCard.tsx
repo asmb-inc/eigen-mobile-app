@@ -13,8 +13,8 @@ const SingleQuestionsCard = ({ item }: { item:Question,  }) => {
                     <Text className="text-base font-semibold text-gray-800 flex-1 pr-2">
                         {item.title}
                     </Text>
-                    <View className={`${colors.bg} px-2 py-1 rounded-full ml-2`}>
-                        <Text className={`text-xs font-semibold ${colors.text}`}>
+                    <View className={'px-2 py-1 rounded-full ml-2 bg-green-200'+colors.bg}>
+                        <Text className={'text-xs font-semibold '+colors.text}>
                             
                             {item.difficulty}
                         </Text>
